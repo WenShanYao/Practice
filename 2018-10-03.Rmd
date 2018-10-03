@@ -3,3 +3,29 @@ title: '2018-10-03'
 output: html_document
 ---
 
+```{r}
+library(stringr)
+```
+
+```{r}
+str_c(letters,LETTERS)
+str_c(letters,LETTERS,sep="-")
+str_c("lowercase: ", letters, ", capital: ", LETTERS)
+```
+
+```{r}
+letters
+LETTERS
+```
+```{r}
+str_c(letters, collapse = "")
+str_c(letters, collapse = ", ")
+```
+
+```{r}
+str_c("Letter: ", letters)
+str_c("Letter", letters, sep = ": ")
+str_c(letters, " is for", "...")
+str_c(letters[-26], " comes before ", letters[-1])
+```
+
