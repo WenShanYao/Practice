@@ -1,0 +1,16 @@
+"0","studentIDBorrowCount <- vector(""numeric"",length(studentID))"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","for (i in c(1:length(studentID))) {"
+"0","  studentID_i <- studentID[i]"
+"0","  numericalIndexForsubsample2 <- which(libraryData$學號==studentID_i)"
+"0","  studentIDsubsample_i <- libraryData[numericalIndexForsubsample2,]"
+"0","  studentIDBorrowCount_i <- nrow(studentIDsubsample_i)"
+"0","  studentIDBorrowCount[[i]] <- studentIDBorrowCount_i"
+"0","  "
+"0","}"

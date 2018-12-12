@@ -1,0 +1,116 @@
+---
+title: "2018-12-12"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+libraryData <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/library100_102.csv")
+```
+
+```{r}
+as.factor(libraryData$書籍館藏地) -> libraryData$書籍館藏地
+levels(libraryData$書籍館藏地) -> storageLocations
+storageLocations
+```
+
+```{r}
+i<-1
+# 1
+storageLocation_i <- storageLocations[i] 
+# 2
+numericalIndexForSubsample<-which(libraryData$書籍館藏地==storageLocation_i)
+subsample_i <- libraryData[numericalIndexForSubsample,]
+# 3
+borrowCount_i <- nrow(subsample_i)
+```
+
+```{r}
+# 0
+allBorrowCount <- vector("numeric",18)
+i<-1
+  # 1
+  storageLocation_i <- storageLocations[i] 
+  # 2
+  numericalIndexForSubsample<-which(libraryData$書籍館藏地==storageLocation_i)
+  subsample_i <- libraryData[numericalIndexForSubsample,]
+  # 3
+  borrowCount_i <- nrow(subsample_i)
+  # 4
+  allBorrowCount[[i]]<-borrowCount_i
+```
+
+```{r}
+# 0
+allBorrowCount <- vector("numeric",18)
+for(i in c(1:18)){
+  # 1
+  storageLocation_i <- storageLocations[i] 
+  # 2
+  numericalIndexForSubsample<-which(libraryData$書籍館藏地==storageLocation_i)
+  subsample_i <- libraryData[numericalIndexForSubsample,]
+  # 3
+  borrowCount_i <- nrow(subsample_i)
+  # 4
+  allBorrowCount[[i]]<-borrowCount_i  
+}
+```
+
+```{r}
+as.factor(libraryData$學院) -> libraryData$學院
+levels(libraryData$學院) -> colleges
+colleges
+```
+
+```{r}
+# 0
+collegeBorrowCount <- vector("numeric",length(colleges))
+for(i in c(1:length(colleges))){
+  # 1
+  college_i <- colleges[i] 
+  # 2
+  numericalIndexForSubsample1<-which(libraryData$學院==college_i)
+  collegesubsample_i <- libraryData[numericalIndexForSubsample1,]
+  # 3
+  collegeborrowCount_i <- nrow(collegesubsample_i)
+  # 4
+  collegeBorrowCount[[i]]<-collegeborrowCount_i  
+}
+```
+
+```{r}
+as.factor(libraryData$學號) -> libraryData$學號
+levels(libraryData$學號) -> studentID
+studentID
+```
+
+```{r}
+studentIDBorrowCount <- vector("numeric",length(studentID))
+for (i in c(1:length(studentID))) {
+  studentID_i <- studentID[i]
+  numericalIndexForsubsample2 <- which(libraryData$學號==studentID_i)
+  studentIDsubsample_i <- libraryData[numericalIndexForsubsample2,]
+  studentIDBorrowCount_i <- nrow(studentIDsubsample_i)
+  studentIDBorrowCount[[i]] <- studentIDBorrowCount_i
+  
+}
+```
+
+```{r}
+libraryData %>%
+  group_by(書籍館藏地) %>%
+  summarise(
+    borrowCount=length(學號)
+  ) -> result
+result
+```
+
+```{r}
+libraryData %>%
+  mutate(
+    學系=str_sub(學號,5,6)
+    ## 相當於 libraryData$學系 <- str_sub(libraryData$學號,5,6)
+  ) -> libraryData
+```
+
+
